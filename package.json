@@ -1,0 +1,17 @@
+{
+  "name": "versuch2",
+  "version": "1.0.0",
+  "description": "demo",
+  "main": "bundle.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "vis": "^4.21.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -w . -e html,js -- bundle.js"
+  },
+  "author": "Jan",
+  "license": "ISC"
+}
