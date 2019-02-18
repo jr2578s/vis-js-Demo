@@ -62,7 +62,7 @@ function visualisiere(objs_list){
   var lastproto =0;
   init = 'true';
   attributcolor= 'yellow';
-  mainnodecolor= 'green';
+  mainnodecolor= '#04B431';
   for (var i =0; i < objs_list.length;i++){
     
     obj = objs_list[i];
@@ -73,12 +73,12 @@ function visualisiere(objs_list){
     data.nodes.push({id: numnodes, label: obj.my_name, color:mainnodecolor });
     tmpnum= numnodes;
     numnodes = numnodes + 1;
-    for(y=0; y<objkeys.length-1;y++){
+    for(y=0; y<objkeys.length;y++){
       value = Object.values(obj);
       data.nodes.push({id: numnodes, label: objkeys[y],color: attributcolor }); 
       data.edges.push({from:tmpnum, to:numnodes, arrows:'to'});
       numnodes =numnodes + 1;
-      data.nodes.push({id: numnodes, label: value[y].toString(),color: 'lightblue' }); 
+      data.nodes.push({id: numnodes, label: value[y].toString(),color: '#A9E2F3' }); 
       data.edges.push({from:numnodes-1, to:numnodes, arrows:'to'});
       numnodes=numnodes +1;
     } 
@@ -94,7 +94,7 @@ function visualisiere(objs_list){
     tmpnum= numnodes;
     numnodes = numnodes+1;
     objkeys= Object.getOwnPropertyNames(proto);
-    for(y=0; y<objkeys.length-1;y++){
+    for(y=0; y<objkeys.length;y++){
       data.nodes.push({id: numnodes, label: objkeys[y],color: attributcolor });
       data.edges.push({from:tmpnum, to:numnodes, arrows:'to'});
       numnodes =numnodes + 1;
@@ -105,7 +105,7 @@ function visualisiere(objs_list){
     tmpnum = numnodes;
     numnodes = numnodes+1;
     objkeys= Object.getOwnPropertyNames(classobj);
-    for(y=0; y<objkeys.length-1;y++){
+    for(y=0; y<objkeys.length;y++){
       data.nodes.push({id: numnodes, label: objkeys[y],color: attributcolor });
       data.edges.push({from:tmpnum, to:numnodes, arrows:'to'});
       numnodes =numnodes + 1;
