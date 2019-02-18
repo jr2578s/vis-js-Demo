@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="../vis/dist/vis.css" type="text/css"/>
     <style type="text/css">
         #graph{
-            width: 800px;
-            height: 600px;
+            width: 1700px;
+            height: 850px;
             border: 1px solid lightgray;
             margin: 0 auto;
         }
@@ -18,47 +18,9 @@
 </head>
 <body>
     <div id="graph"></div>
-    <script type="text/javascript">
-    var data ={
-      nodes:[
-      {id: 1, label: 'Hurennode 1'},
-      {id: 2, label: 'Hurennode 2'},
-      {id: 3, label: 'Hurennode 3'},
-      {id: 4, label: 'Hurennode 4'},
-      {id: 5, label: 'Hurennode 5'}
-      ],
-      edges:[
-      {from: 1, to: 3},
-      {from: 1, to: 2},
-      {from: 2, to: 4},
-      {from: 2, to: 5},
-      {from: 3, to: 3}
-      ],
-      options:{}
-    };
-    var container = document.getElementById("graph");
-    var  network = new vis.Network(container,data,data.options);
+    <script type="text/javascript" src="../index.js">
+   
     </script>
     
 </body>
 </html>
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Webpack 2 Demo</title>
-  <style>
-  #mynetwork {
-    width: 600px;
-    height: 400px;
-    border: 1px solid lightgray;
-  }
-  </style>
-</head>
-<body>
-  <h1>vis.js Network Demo</h1>
-  <div id="mynetwork"></div>
-  <script src="bundle.js"></script>
-</body>
-</html> -->

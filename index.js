@@ -1,41 +1,121 @@
-var express = require("express");
+// Ggf. Initialisierungen für ihren Code / ihre Analyse- und Visualisierungsalgorithmen
+var data ={
+    nodes : [],
+    edges : [],
+    options:{
+      nodes: {
+      
+        size: 25,
+        font: {
+            size: 25,
+            
+        },
+        borderWidth: 2,
+        shadow:true,
+        mass: 1.8
+    },
+    edges: {
+      width: 2,
+      shadow:true
+    }
+      
+    }
+  };
 
-var app = express();
-
-app.use( express.static('public'));
-app.listen(8080, function(){
-    console.log("Du Hurensohn");
-});
-
-/* import { DataSet, Network } from 'node_modules/vis/index-network.js';
-import 'node_modules/vis/dist/vis-network.min.css';
-// create an array with nodes
-var nodes = new DataSet([
-  {id: 1, label: 'Node 1'},
-  {id: 2, label: 'Node 2'},
-  {id: 3, label: 'Node 3'},
-  {id: 4, label: 'Node 4'},
-  {id: 5, label: 'Node 5'}
-]);
-
-// create an array with edges
-var edges = new DataSet([
-  {from: 1, to: 3},
-  {from: 1, to: 2},
-  {from: 2, to: 4},
-  {from: 2, to: 5},
-  {from: 3, to: 3}
-]);
-
-// create a network
-var container = document.getElementById('mynetwork');
-var data = {
-  nodes: nodes,
-  edges: edges
+function Rectangle(length, width) {
+  this.length = length;
+  this.width = width;
+}
+Rectangle.prototype.getArea = function(){
+  return this.length * this.width;
 };
-var options = {
-  interaction: {
-    navigationButtons: true
+Rectangle.prototype.toString = function(){
+  return "[Rectangle "+ this.length + "x" + this.width + "]";
+};
+
+var rect = new Rectangle(5,10);
+
+function Square(size){
+  Rectangle.call(this, size, size);
+}
+Square.prototype = new Rectangle();
+Square.prototype.constructor = Square;
+
+Square.prototype.toString = function(){
+  return "[Square " + this.length + "x" + this.width + "]";
+};
+
+var square = new Square(6);
+
+
+  var objs = [rect, square]; // bitte nicht *alle* Objekte so auflisten, sondern nur ein paar "Startobjekte".
+// Ihr Code soll die restlichen Objekte (Rectangle, Rectangle.prototype, …)
+// selbst "finden" und hinzufügen!
+// Wenn Sie möchten: Hilfscode / Modifikationen der Objekte, um Ihrer Visualisierung etwas zu helfen…
+rect.my_name = "rect"; square.my_name = "square";
+Rectangle.prototype.my_name ="Rectangle.prototype"; Square.prototype.my_name = "Square.prototype";
+Rectangle.my_name="Rectangle"; Square.my_name="Square";
+//Rectangle.my_name = "Rectangle"; Square.my_name = "Square";
+// Hier dann ihr Code zur Analyse und Visualisierung der Objekte und ihrer Beziehungen:
+function visualisiere(objs_list){
+  var numnodes = 0;
+  var lastproto =0;
+  init = 'true';
+  attributcolor= 'yellow';
+  mainnodecolor= 'green';
+  for (var i =0; i < objs_list.length;i++){
+    
+    obj = objs_list[i];
+    proto = Object.getPrototypeOf(objs_list[i]);
+    classobj = proto.constructor;  
+  
+    objkeys =Object.getOwnPropertyNames(obj);
+    data.nodes.push({id: numnodes, label: obj.my_name, color:mainnodecolor });
+    tmpnum= numnodes;
+    numnodes = numnodes + 1;
+    for(y=0; y<objkeys.length-1;y++){
+      value = Object.values(obj);
+      data.nodes.push({id: numnodes, label: objkeys[y],color: attributcolor }); 
+      data.edges.push({from:tmpnum, to:numnodes, arrows:'to'});
+      numnodes =numnodes + 1;
+      data.nodes.push({id: numnodes, label: value[y].toString(),color: 'lightblue' }); 
+      data.edges.push({from:numnodes-1, to:numnodes, arrows:'to'});
+      numnodes=numnodes +1;
+    } 
+
+    data.nodes.push({id: numnodes, label: proto.my_name, color:mainnodecolor}); 
+    data.edges.push({from:tmpnum, to:numnodes, arrows:'to'})  
+    if (init=='false'){
+      var lastprot=Object.getPrototypeOf(objs_list[i-1]);
+      if (proto == Object.getPrototypeOf(lastprot))  data.edges.push({from:lastproto, to:numnodes, arrows:'to'});
+      if( Object.getPrototypeOf(proto) == lastprot)  data.edges.push({from:numnodes, to:lastproto, arrows:'to'})
+    }   
+    lastproto= numnodes;
+    tmpnum= numnodes;
+    numnodes = numnodes+1;
+    objkeys= Object.getOwnPropertyNames(proto);
+    for(y=0; y<objkeys.length-1;y++){
+      data.nodes.push({id: numnodes, label: objkeys[y],color: attributcolor });
+      data.edges.push({from:tmpnum, to:numnodes, arrows:'to'});
+      numnodes =numnodes + 1;
+    } 
+    
+    data.nodes.push({id: numnodes, label: classobj.my_name, color:mainnodecolor});
+    data.edges.push({from:tmpnum, to:numnodes, arrows:'to'})
+    tmpnum = numnodes;
+    numnodes = numnodes+1;
+    objkeys= Object.getOwnPropertyNames(classobj);
+    for(y=0; y<objkeys.length-1;y++){
+      data.nodes.push({id: numnodes, label: objkeys[y],color: attributcolor });
+      data.edges.push({from:tmpnum, to:numnodes, arrows:'to'});
+      numnodes =numnodes + 1;
+    } 
+    
+    init='false';
   }
-};
-var network = new Network(container, data, options); */
+
+  var container = document.getElementById("graph");
+  var  network = new vis.Network(container,data,data.options); 
+}
+
+visualisiere(objs);
