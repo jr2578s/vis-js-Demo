@@ -57,6 +57,7 @@ Rectangle.prototype.my_name ="Rectangle.prototype"; Square.prototype.my_name = "
 Rectangle.my_name="Rectangle"; Square.my_name="Square";
 //Rectangle.my_name = "Rectangle"; Square.my_name = "Square";
 // Hier dann ihr Code zur Analyse und Visualisierung der Objekte und ihrer Beziehungen:
+
 function visualisiere(objs_list){
   var numnodes = 0;
   var lastproto =0;
@@ -115,7 +116,7 @@ function visualisiere(objs_list){
   }
 
   var container = document.getElementById("graph");
-  var  network = new vis.Network(container,data,data.options); 
+  var network = new vis.Network(container,data,data.options); 
 }
 
 visualisiere(objs);

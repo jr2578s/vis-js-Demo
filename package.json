@@ -1,17 +1,17 @@
 {
-  "name": "versuch2",
+  "name": "vis-js-Demo",
   "version": "1.0.0",
   "description": "demo",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.4",
-    "vis": "^4.21.0"
+    "http-server": "^14.1.1",
+    "vis-network": "^9.1.9"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -w . -e html,js -- index.js"
+    "start": "http-server"
   },
-  "author": "Jan",
+  "author": "Jan Reiners",
   "license": "ISC"
 }
